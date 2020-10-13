@@ -1,0 +1,12 @@
+{
+  "name": "HomeBeer",
+  "displayName": "HomeBeer",
+  "expo": {
+    "name": "HomeBeer",
+    "slug": "HomeBeer",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
