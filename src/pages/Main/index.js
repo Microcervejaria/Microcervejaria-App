@@ -15,7 +15,6 @@ export default function Main() {
   return (
     <View style={styles.container}>
       <Text>Home Beer</Text>
-      <StatusBar style="auto" />
     </View>
   );
 }
