@@ -1,11 +1,11 @@
 import * as React from 'react';;
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { TabBar, TabView, SceneMap } from 'react-native-tab-view';
-import Recipes from './Recipes';
+import Ingredients from './Ingredients';
 import Process from './Process';
 
 const FirstRoute = () => (
-  <Recipes />
+  <Ingredients />
 );
 
 const SecondRoute = () => (
@@ -25,12 +25,12 @@ const renderTabBar = props => (
 export default function RecipeTab () {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'recipe', title: 'Ingredientes' },
+    { key: 'ingredient', title: 'Ingredientes' },
     { key: 'process', title: 'Processos' },
   ]);
 
   const renderScene = SceneMap({
-    recipe: FirstRoute,
+    ingredient: FirstRoute,
     process: SecondRoute,
   });
 

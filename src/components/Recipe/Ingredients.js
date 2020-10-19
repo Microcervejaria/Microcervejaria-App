@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { View, FlatList, Text } from 'react-native';
-import { Container, Cover, Content, List, TabDescription } from './TabSelectStyle';
-
-
-class Recipe extends Component {
+import { TabContainer, TabList, TabDescription } from './styles';
+class Ingredients extends Component {
   render() {
     return (
-      <Container>
-          <List
+      <TabContainer>
+          <TabList
             sections={[
               {title: '20L', data: ['Água para Malte']},
               {title: '14L', data: ['Água para extração']},
@@ -24,12 +22,12 @@ class Recipe extends Component {
             keyExtractor={(item, index) => index
             }
           />
-      </Container>
+      </TabContainer>
     );
   }
 }
 
-export default Recipe;
+export default Ingredients;
 
 
 // renderItem={({section, item}) =>

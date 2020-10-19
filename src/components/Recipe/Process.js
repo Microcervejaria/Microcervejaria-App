@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { View, FlatList, Text } from 'react-native';
-import { Container, Cover, Content, List, TabDescription } from './TabSelectStyle';
+import { TabContainer, TabList, TabDescription } from './styles';
 
 
 class Process extends Component {
   render() {
     return (
-      <Container>
-          <List
+      <TabContainer>
+          <TabList
             scrollEnabled
             stickySectionHeadersEnabled
             sections={[
@@ -21,7 +21,7 @@ class Process extends Component {
             bounces={false}
             keyExtractor={(item, index) => index}
           />
-      </Container>
+      </TabContainer>
     );
   }
 }
