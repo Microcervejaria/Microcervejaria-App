@@ -27,14 +27,11 @@ const styles = StyleSheet.create({
 export default function QrCodeReader() {
   const { navigate } = useNavigation();
   const [cameraPermission, setcameraPermission] = useState(false);
-  const [scanned, setScanned] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const [qrData, setQrData] = useState({});
 
   const handleBarCodeScanned = (result) => {
-    setScanned(true);
+    const token = result.data;
 
-    const token = "cervejaria"
+    // TODO: Guardar token
 
     navigate('Main');
   };
@@ -65,13 +62,6 @@ export default function QrCodeReader() {
                   barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
                 />
               </CameraContainer>
-              <View style={{ marginTop: 30 }}>
-                {
-                  hasError
-                    ? <ErrorTitle>NÃO FOI POSSÍVEL LER O CÓDIGO QR</ErrorTitle>
-                    : <Title>APONTE A CÂMERA PARA O CÓDIGO QR</Title>
-                }
-              </View>
             </>
           ) : (
             <ErrorCotainer>
