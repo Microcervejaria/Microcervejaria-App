@@ -13,7 +13,6 @@ class RecipeCard extends Component {
   static contextType = RecipeContext;
 
   render() {
-    console.log(this.context.data.fervura);
     return (
       <ContainerRecipeCard>
         <ContentRecipeCard>

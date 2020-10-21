@@ -34,7 +34,7 @@ export default function RecipeTab (props) {
     recipeContext.data.brassagem.forEach(function (obj) {
       dataBrazing.push(obj.temperatura + '°C ' + obj.tempo + ' min');
     });
-    setBrazingData({'title': '2. Brasagem', 'data': dataBrazing});
+    setBrazingData({'title': '2. brassagem', 'data': dataBrazing});
   }
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function RecipeTab (props) {
   );
 
   const SecondRoute = () => (
-    <Process aquecimento={warmData} brasagem={brazingData} fervura={boilData} />
+    <Process aquecimento={warmData} brassagem={brazingData} fervura={boilData} />
   );
 
   const [routes] = React.useState([
