@@ -14,13 +14,13 @@ const ContainerRecipeCard = styled.View`
 const ContentRecipeCard = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  padding: 20px;
+  padding: 10px 5px 10px;
   padding-top: 10px;
 `;
 
 const TitleRecipeCard = styled.Text`
   color: #FFFFFF;
-  font-size: 35px;
+  font-size: 25px;
   font-weight: 600;
 `;
 

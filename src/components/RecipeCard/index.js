@@ -17,7 +17,7 @@ class RecipeCard extends Component {
     return (
       <ContainerRecipeCard>
         <ContentRecipeCard>
-          <CookBook width={50} height={50}/>
+          <CookBook width={45} height={45}/>
           <TitleRecipeCard>{this.context.data.nome}</TitleRecipeCard>
           <EditIcon width={30} height={30}/>
         </ContentRecipeCard>
