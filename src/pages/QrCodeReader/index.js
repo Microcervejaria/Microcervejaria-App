@@ -36,7 +36,7 @@ export default function QrCodeReader() {
 
     const token = "cervejaria"
 
-    // navigate('PaymentConfirmation');
+    navigate('Main');
   };
 
   useEffect(() => {
