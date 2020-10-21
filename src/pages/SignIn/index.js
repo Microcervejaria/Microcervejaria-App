@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 export default function SignIn() {
   return (
     <View style={styles.container}>
-      <Logo width={232} height={274} />
+      <Logo width={232} height={274} style={{ margin: 40 }} />
       <View style={styles.body}>
         <TouchableOpacity>
           <QrCode width={160} height={160} />
