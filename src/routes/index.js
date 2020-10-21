@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from '../pages/SignIn';
 import QRCodeReader from '../pages/QRCodeReader';
 import Main from '../pages/Main';
+import { NativeScreen } from 'react-native-screens';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -21,8 +22,8 @@ export default function Routes() {
         },
       }}>
         <Screen name="Sign In" component={SignIn} options={{ headerShown: false }} />
-        <Screen name="Leitura do QR Code" component={QRCodeReader} />
-        <Screen name="Main" component={Main} />
+        <Screen name="Leitura do QR Code" component={QRCodeReader} options={{ headerBackTitle: "Voltar" }} />
+        <Screen name="Main" component={Main} options={{ headerBackTitle: "Sair" }} />
       </Navigator>
     </NavigationContainer>
   );
