@@ -25,8 +25,7 @@ const TitleRecipeCard = styled.Text`
 `;
 
 const DescriptionRecipeCard = styled.Text`
-  padding: 15px;
-  padding-top: 0px;
+  padding: 0px 15px 15px;
   color: #FFFFFF;
   font-size: 15px;
 `;

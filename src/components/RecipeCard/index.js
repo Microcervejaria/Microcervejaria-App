@@ -7,37 +7,35 @@ import CookBook from '../../assets/icons/cookBook.svg';
 import EditIcon from '../../assets/icons/editIcon.svg';
 import Clock from '../../assets/icons/clock.svg';
 import Beer from '../../assets/icons/beer.svg';
+import RecipeContext from '../../contexts/recipe';
 
 class RecipeCard extends Component {
-  constructor(props) {
-    super(props);
-  }
+  static contextType = RecipeContext;
 
   render() {
+    console.log(this.context.data.fervura);
     return (
       <ContainerRecipeCard>
         <ContentRecipeCard>
           <CookBook width={50} height={50}/>
-          <TitleRecipeCard>Malte</TitleRecipeCard>
+          <TitleRecipeCard>{this.context.data.nome}</TitleRecipeCard>
           <EditIcon width={30} height={30}/>
         </ContentRecipeCard>
-        <DescriptionRecipeCard>Possui um sabor mais ameno. Bom para pessoas que não aguentam Heineken.</DescriptionRecipeCard>
+        <DescriptionRecipeCard>{this.context.data.descricao}</DescriptionRecipeCard>
         <InfoRowRecipeCard>
           <InfoComponentRecipeCard>
             <Clock  width={30} height={30} />
-            <InfoTextRecipeCard>30min</InfoTextRecipeCard>
+            <InfoTextRecipeCard>{this.context.data.tempoMedio} min</InfoTextRecipeCard>
           </InfoComponentRecipeCard>
           <InfoComponentRecipeCard>
             <Beer width={30} height={30} />
-            <InfoTextRecipeCard>3 Litros</InfoTextRecipeCard>
+            <InfoTextRecipeCard>{this.context.data.quantidadeLitros} Litros</InfoTextRecipeCard>
           </InfoComponentRecipeCard>
         </InfoRowRecipeCard>
-        <RecipeTab/>
+        <RecipeTab />
       </ContainerRecipeCard>
     );
   }
 }
-
-RecipeCard.propTypes = { title: PropTypes.string.isRequired };
 
 export default RecipeCard;
