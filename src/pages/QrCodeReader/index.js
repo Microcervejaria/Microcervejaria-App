@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-
-import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import {
@@ -16,15 +14,7 @@ import {
 
 import Border from '../../assets/qrCodeBorder.svg';
 
-const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});
-
-export default function QrCodeReader() {
+export default function QRCodeReader() {
   const { navigate } = useNavigation();
   const [cameraPermission, setcameraPermission] = useState(false);
 
@@ -62,6 +52,7 @@ export default function QrCodeReader() {
                   barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
                 />
               </CameraContainer>
+              <Title>APONTE A CÂMERA PARA O QR CODE</Title>
             </>
           ) : (
             <ErrorCotainer>

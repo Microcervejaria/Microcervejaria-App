@@ -23,9 +23,9 @@ export default function SignIn() {
 
   return (
     <View style={styles.container}>
-      <Logo width={232} height={274} style={{ margin: 40 }} />
+      <Logo width={232} height={274} style={{ marginTop: 40 }} />
       <View style={styles.body}>
-        <TouchableOpacity onPressOut={() => navigate('Leitura do QrCode')}>
+        <TouchableOpacity onPressOut={() => navigate('Leitura do QR Code')}>
           <QrCode width={160} height={160} />
         </TouchableOpacity>
         <Description>

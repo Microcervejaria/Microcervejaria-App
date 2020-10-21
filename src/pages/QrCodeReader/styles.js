@@ -33,7 +33,8 @@ export const OpaqueBackground = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #FFF;
+  margin-top: 30px;
 `;
