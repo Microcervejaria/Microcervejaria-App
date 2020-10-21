@@ -5,8 +5,7 @@ const ContainerRecipeCard = styled.View`
   height: 450px;
   width: 320px;
   border-radius: 14px;
-  margin: 18px;
-  margin-top: 20px;
+  margin: 20px 18px 18px;
   padding: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 `;
@@ -15,7 +14,6 @@ const ContentRecipeCard = styled.View`
   flex-direction: row;
   justify-content: space-between;
   padding: 10px 5px 10px;
-  padding-top: 10px;
 `;
 
 const TitleRecipeCard = styled.Text`
@@ -33,8 +31,7 @@ const DescriptionRecipeCard = styled.Text`
 const InfoRowRecipeCard = styled.View`
   flex-direction: row;
   justify-content: space-around;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 8px 0px;
 `
 
 const InfoComponentRecipeCard = styled.View`
@@ -51,21 +48,20 @@ const TabContainer = styled.View`
   /* width: 320px; */
   flex: 1;
   border-radius: 14px;
-  margin: 18px;
-  margin-top: 20px;
+  margin: 20px 18px 18px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 `;
 
 const TabList = styled.SectionList`
   flex: 1;
   height: 150%;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 10px;
 `;
 
 const TabDescription = styled.Text`
-  color: #FFFFFF;
+  color: #FFF;
   font-size: 13px;
+  padding: 1px;
 `;
 
 
