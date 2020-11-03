@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import API from '../../services/api';
+
 import {
   Description,
   ReportContainer,
@@ -30,6 +32,7 @@ export default function Cleaning() {
 
   const CLEANING_TIME = 7200;
 
+  const [loading, setLoading] = useState(true);
   const [remaingSecs, setRemaingSecs] = useState(0);
   const [elapsedSecs, setElapsedSecs] = useState(CLEANING_TIME);
   const [isActive, setIsActive] = useState(true);
@@ -40,8 +43,20 @@ export default function Cleaning() {
   const eMins = getTime(elapsedSecs).mins;
   const eSecs = getTime(elapsedSecs).secs;
 
+  async function getResponse() {
+    setLoading(true);
+    const response = await API.post(`limpeza`, { headers: { "Authorization": "cervejaria" }});
+    console.warn(response.data);
+    setLoading(false);
+  }
+
   useEffect(() => {
     let interval = null;
+
+    if (isActive && remaingSecs === 0 && elapsedSecs === CLEANING_TIME) {
+      getResponse()
+    }
+
     if (isActive) {
       interval = setInterval(() => {
         setRemaingSecs(remaingSecs => remaingSecs + 1);
@@ -55,6 +70,7 @@ export default function Cleaning() {
   }, [isActive, remaingSecs, elapsedSecs]);
 
   return (
+    !loading && (
     <View style={styles.container}>
       <Bucket width={250} height={250} style={{ margin: 40 }} />
       <Description>Realizando Limpeza, aguarde...</Description>
@@ -63,5 +79,6 @@ export default function Cleaning() {
         <ReportText>Tempo restante: {`${eHours}:${eMins}:${eSecs}`}</ReportText>
       </ReportContainer>
     </View>
+    )
   );
 }
