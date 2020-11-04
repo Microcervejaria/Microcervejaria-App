@@ -6,7 +6,7 @@ import { CardsInfo, ContainerRecipeForm, TitleRecipeForm, InputText, TitleRow,
   AmountInput, InformationInput, SubmitButton, SubmitButtonText, DeleteButton,
   NameDescriptionInput, HalfWidthInput, WarmAmountInput, WarmIngredientInput, WarmTimeInput,
   AmountLabel, InformationLabel, HalfWidthLabel, WarmAmountLabel, WarmIngredientLabel,
-  WarmTimeLabel, LoadingView}
+  WarmTimeLabel, LoadingView, DeleteSubmitButton}
   from './styles';
 
 import CookBook from '../../assets/icons/cookBookForm.svg';
@@ -50,6 +50,20 @@ const RecipeFormCard = (props) => {
     }
   }
 
+  const onSubmit = async (values, {setSubmitting, setErrors, setStatus, resetForm}) => {
+    try {
+      const data = JSON.stringify(values, null, 2);
+      sendData(data);
+      resetForm({})
+      setStatus({success: true})
+    } catch (error) {
+      setStatus({success: false})
+      setSubmitting(false)
+      setErrors({submit: error.message})
+    }
+  }
+
+
   const requestEditData = async (setFieldValue) => {
     await API.get(`receita/${props.id}/`, {headers: {
       'Authorization': 'cervejaria',
@@ -67,6 +81,18 @@ const RecipeFormCard = (props) => {
     }, (error) => {
       console.log(error);
     });
+  }
+
+  const deleteData = async (data) => {
+    if(props.id) {
+      await API.delete(`receitas/${props.id}`,   {headers: {
+        'Authorization': 'cervejaria',
+      }}).then((response) => {
+        console.log(response);
+      }, (error) => {
+        console.log(error);
+      });
+    }
   }
 
   const sendData = async (data) => {
@@ -106,18 +132,15 @@ const RecipeFormCard = (props) => {
     <ContainerRecipeForm>
     <Formik
       initialValues={initialValues}
-      onSubmit={values => {
-        const data = JSON.stringify(values, null, 2);
-        sendData(data);
-      }}
+      onSubmit={onSubmit}
     >
       {({ handleChange, handleBlur, handleSubmit, values, setFieldValue }) => {
-
       useEffect(() => {
         if(props.id){
           (async () => await requestEditData(setFieldValue))();
         }
       },[]);
+
       return(
         <>
         {
@@ -378,6 +401,14 @@ const RecipeFormCard = (props) => {
           <SubmitButton onPress={handleSubmit} title="Submit">
             <SubmitButtonText>Confirmar</SubmitButtonText>
           </SubmitButton>
+
+          {props.id ?
+            <DeleteSubmitButton onPress={deleteData} title="Delete">
+              <SubmitButtonText>Excluir</SubmitButtonText>
+            </DeleteSubmitButton>
+            :
+            <></>
+          }
         </>
       }
         </>

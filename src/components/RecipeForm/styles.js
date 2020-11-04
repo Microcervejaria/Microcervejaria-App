@@ -223,5 +223,17 @@ const LoadingView = styled.View`
   justify-content: center;
   align-items: center;
 `
+const DeleteSubmitButton = styled.TouchableOpacity`
+  padding: 10px;
+  margin: 10px 0px 10px;
+  width: 200px;
+  height: 48px;
+  background: #EB5757;
+  color: black;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+`
 
-export {CardsInfo, ContainerRecipeForm, TitleRecipeForm, InputText, TitleRow, SliderLabels, Row, TemperatureText, LabelText, AddButton, ButtonText, AmountInput, InformationInput, SubmitButton, SubmitButtonText, DeleteButton, NameDescriptionInput, HalfWidthInput, WarmAmountInput, WarmIngredientInput, WarmTimeInput, RowLabel, AmountLabel, InformationLabel, HalfWidthLabel, WarmAmountLabel, WarmIngredientLabel, WarmTimeLabel, HalfInputText, LoadingView};
+export {CardsInfo, ContainerRecipeForm, TitleRecipeForm, InputText, TitleRow, SliderLabels, Row, TemperatureText, LabelText, AddButton, ButtonText, AmountInput, InformationInput, SubmitButton, SubmitButtonText, DeleteButton, NameDescriptionInput, HalfWidthInput, WarmAmountInput, WarmIngredientInput, WarmTimeInput, RowLabel, AmountLabel, InformationLabel, HalfWidthLabel, WarmAmountLabel, WarmIngredientLabel, WarmTimeLabel, HalfInputText, LoadingView, DeleteSubmitButton};
