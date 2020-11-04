@@ -3,10 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import SignIn from '../pages/SignIn';
+import RecipeFormPage from '../pages/RecipeForm';
 import QRCodeReader from '../pages/QRCodeReader';
 import Main from '../pages/Main';
 import { NativeScreen } from 'react-native-screens';
-import RecipeFormCard from '../components/RecipeForm';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -25,7 +25,7 @@ export default function Routes() {
         {/* <Screen name="Sign In" component={SignIn} options={{ headerShown: false }} /> */}
         {/* <Screen name="Leitura do QR Code" component={QRCodeReader} options={{ headerBackTitle: "Voltar" }} /> */}
         {/* <Screen name="Main" component={Main} options={{ headerBackTitle: "Sair" }} /> */}
-        <Screen name="Main" component={RecipeFormCard} options={{ headerBackTitle: "Sair" }} />
+        <Screen name="Formulário de Receita" component={RecipeFormPage} />
       </Navigator>
     </NavigationContainer>
   );
