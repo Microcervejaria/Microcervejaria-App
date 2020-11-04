@@ -89,7 +89,7 @@ const ButtonText = styled.Text`
 
 const AmountInput = styled.TextInput`
   padding-left: 5px;
-  width: 80px;
+  width: 100px;
   border-radius: 5px;
   background-color: #e8bf7d;
   margin: 5px;
@@ -97,7 +97,7 @@ const AmountInput = styled.TextInput`
 
 const InformationInput = styled.TextInput`
   padding-left: 5px;
-  width: 220px;
+  width: 200px;
   border-radius: 5px;
   background-color: #e8bf7d;
   margin: 5px;
@@ -105,14 +105,14 @@ const InformationInput = styled.TextInput`
 
 const AmountLabel = styled.Text`
   padding-left: 5px;
-  width: 80px;
+  width: 100px;
   margin: 10px 5px 0px;
   color: #14213D;
 `;
 
 const InformationLabel = styled.Text`
   padding-left: 5px;
-  width: 220px;
+  width: 200px;
   margin: 10px 5px 0px;
   color: #14213D;
 `;
@@ -169,7 +169,7 @@ const HalfWidthLabel = styled.Text`
 
 const WarmTimeInput = styled.TextInput`
   padding-left: 5px;
-  width: 60px;
+  width: 90px;
   border-radius: 5px;
   background-color: #e8bf7d;
   margin: 5px;
@@ -177,7 +177,7 @@ const WarmTimeInput = styled.TextInput`
 
 const WarmIngredientInput = styled.TextInput`
   padding-left: 5px;
-  width: 150px;
+  width: 120px;
   border-radius: 5px;
   background-color: #e8bf7d;
   margin: 5px;
@@ -193,14 +193,14 @@ const WarmAmountInput = styled.TextInput`
 
 const WarmTimeLabel = styled.Text`
   padding-left: 5px;
-  width: 60px;
+  width: 90px;
   margin: 10px 5px 0px;
   color: #14213D;
 `;
 
 const WarmIngredientLabel = styled.Text`
   padding-left: 5px;
-  width: 150px;
+  width: 120px;
   margin: 10px 5px 0px;
   color: #14213D;
 `;
@@ -212,6 +212,16 @@ const WarmAmountLabel = styled.Text`
   color: #14213D;
 `;
 
+const HalfInputText = styled.Text`
+  padding-left: 0px;
+  color: #14213D;
+  background-color: #e8bf7d;
+`;
 
+const LoadingView = styled.View`
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+`
 
-export {CardsInfo, ContainerRecipeForm, TitleRecipeForm, InputText, TitleRow, SliderLabels, Row, TemperatureText, LabelText, AddButton, ButtonText, AmountInput, InformationInput, SubmitButton, SubmitButtonText, DeleteButton, NameDescriptionInput, HalfWidthInput, WarmAmountInput, WarmIngredientInput, WarmTimeInput, RowLabel, AmountLabel, InformationLabel, HalfWidthLabel, WarmAmountLabel, WarmIngredientLabel, WarmTimeLabel};
+export {CardsInfo, ContainerRecipeForm, TitleRecipeForm, InputText, TitleRow, SliderLabels, Row, TemperatureText, LabelText, AddButton, ButtonText, AmountInput, InformationInput, SubmitButton, SubmitButtonText, DeleteButton, NameDescriptionInput, HalfWidthInput, WarmAmountInput, WarmIngredientInput, WarmTimeInput, RowLabel, AmountLabel, InformationLabel, HalfWidthLabel, WarmAmountLabel, WarmIngredientLabel, WarmTimeLabel, HalfInputText, LoadingView};
