@@ -47,6 +47,12 @@ const Row = styled.View`
   flex-direction: row;
 `;
 
+const RowLabel = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 40px;
+`;
+
 const TemperatureText = styled.Text`
   align-self: center;
   font-size: 30px;
@@ -83,7 +89,7 @@ const ButtonText = styled.Text`
 
 const AmountInput = styled.TextInput`
   padding-left: 5px;
-  width: 220px;
+  width: 80px;
   border-radius: 5px;
   background-color: #e8bf7d;
   margin: 5px;
@@ -91,10 +97,24 @@ const AmountInput = styled.TextInput`
 
 const InformationInput = styled.TextInput`
   padding-left: 5px;
-  width: 80px;
+  width: 220px;
   border-radius: 5px;
   background-color: #e8bf7d;
   margin: 5px;
+`;
+
+const AmountLabel = styled.Text`
+  padding-left: 5px;
+  width: 80px;
+  margin: 10px 5px 0px;
+  color: #14213D;
+`;
+
+const InformationLabel = styled.Text`
+  padding-left: 5px;
+  width: 220px;
+  margin: 10px 5px 0px;
+  color: #14213D;
 `;
 
 const SubmitButton = styled.TouchableOpacity`
@@ -140,4 +160,58 @@ const HalfWidthInput = styled.TextInput`
   margin: 5px;
 `;
 
-export {CardsInfo, ContainerRecipeForm, TitleRecipeForm, InputText, TitleRow, SliderLabels, Row, TemperatureText, LabelText, AddButton, ButtonText, AmountInput, InformationInput, SubmitButton, SubmitButtonText, DeleteButton, NameDescriptionInput, HalfWidthInput};
+const HalfWidthLabel = styled.Text`
+  padding-left: 5px;
+  width: 47%;
+  margin: 10px 5px 0px;
+  color: #14213D;
+`;
+
+const WarmTimeInput = styled.TextInput`
+  padding-left: 5px;
+  width: 60px;
+  border-radius: 5px;
+  background-color: #e8bf7d;
+  margin: 5px;
+`;
+
+const WarmIngredientInput = styled.TextInput`
+  padding-left: 5px;
+  width: 150px;
+  border-radius: 5px;
+  background-color: #e8bf7d;
+  margin: 5px;
+`;
+
+const WarmAmountInput = styled.TextInput`
+  padding-left: 5px;
+  width: 80px;
+  border-radius: 5px;
+  background-color: #e8bf7d;
+  margin: 5px;
+`;
+
+const WarmTimeLabel = styled.Text`
+  padding-left: 5px;
+  width: 60px;
+  margin: 10px 5px 0px;
+  color: #14213D;
+`;
+
+const WarmIngredientLabel = styled.Text`
+  padding-left: 5px;
+  width: 150px;
+  margin: 10px 5px 0px;
+  color: #14213D;
+`;
+
+const WarmAmountLabel = styled.Text`
+  padding-left: 5px;
+  width: 80px;
+  margin: 10px 5px 0px;
+  color: #14213D;
+`;
+
+
+
+export {CardsInfo, ContainerRecipeForm, TitleRecipeForm, InputText, TitleRow, SliderLabels, Row, TemperatureText, LabelText, AddButton, ButtonText, AmountInput, InformationInput, SubmitButton, SubmitButtonText, DeleteButton, NameDescriptionInput, HalfWidthInput, WarmAmountInput, WarmIngredientInput, WarmTimeInput, RowLabel, AmountLabel, InformationLabel, HalfWidthLabel, WarmAmountLabel, WarmIngredientLabel, WarmTimeLabel};
