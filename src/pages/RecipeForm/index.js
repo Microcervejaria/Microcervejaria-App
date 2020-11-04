@@ -32,7 +32,7 @@ export default function RecipeFormPage() {
   return (
       <View style={styles.container}>
         {/* <Text>Home Beer</Text> */}
-        <RecipeFormCard id="American IPA" />
+        <RecipeFormCard id="Black IPA" />
       </View>
   );
 }

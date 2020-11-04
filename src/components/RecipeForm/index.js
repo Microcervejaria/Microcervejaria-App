@@ -1,16 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { Formik } from 'formik';
-import {Button, Text, TextInput, View} from 'react-native';
-import {Picker} from '@react-native-community/picker';
+import {Button, Text, TextInput, View, ActivityIndicator} from 'react-native';
 import { CardsInfo, ContainerRecipeForm, TitleRecipeForm, InputText, TitleRow,
   Row, SliderLabels, TemperatureText, LabelText, AddButton, ButtonText,
   AmountInput, InformationInput, SubmitButton, SubmitButtonText, DeleteButton,
   NameDescriptionInput, HalfWidthInput, WarmAmountInput, WarmIngredientInput, WarmTimeInput,
   AmountLabel, InformationLabel, HalfWidthLabel, WarmAmountLabel, WarmIngredientLabel,
-  WarmTimeLabel}
+  WarmTimeLabel, LoadingView}
   from './styles';
-
-import { TextInputMask } from 'react-native-masked-text'
 
 import CookBook from '../../assets/icons/cookBookForm.svg';
 import Fire from '../../assets/icons/fire.svg';
@@ -42,15 +39,21 @@ const createIngredient = () => ({
 
 
 const RecipeFormCard = (props) => {
-  const [temperatureData, setTemperatureData] = useState(250);
+  const [loading, setLoading] = useState(props.id ? true : false);
+
+  const replaceToNumber = (value) => {
+    if(value){
+      return value.replace(/[^0-9]/g, '');
+    }
+    else{
+      return null;
+    }
+  }
 
   const requestEditData = async (setFieldValue) => {
     await API.get(`receita/${props.id}/`, {headers: {
       'Authorization': 'cervejaria',
     }}).then((response) => {
-      console.log("ENTROU  NA RESPONSE");
-      console.log(responseData);
-      console.log("ENTROU  NA RESPONSE");
       const responseData = response.data[0];
       setFieldValue(`nome`, responseData.nome);
       setFieldValue(`descricao`, responseData.descricao);
@@ -60,6 +63,7 @@ const RecipeFormCard = (props) => {
       setFieldValue(`brassagem`, responseData.brassagem);
       setFieldValue(`fervura`, responseData.fervura);
       setFieldValue(`ingredientes`, responseData.ingredientes);
+      setLoading(false);
     }, (error) => {
       console.log(error);
     });
@@ -104,33 +108,28 @@ const RecipeFormCard = (props) => {
       initialValues={initialValues}
       onSubmit={values => {
         const data = JSON.stringify(values, null, 2);
-        console.log(data);
         sendData(data);
       }}
     >
       {({ handleChange, handleBlur, handleSubmit, values, setFieldValue }) => {
+
       useEffect(() => {
-        console.log(props.id);
         if(props.id){
           (async () => await requestEditData(setFieldValue))();
         }
       },[]);
       return(
         <>
-          <CardsInfo>
+        {
+        loading ?
+        <LoadingView><ActivityIndicator size="large" color="#FCA311" visible={!loading}/></LoadingView>
+        :
+        <>
+          <CardsInfo visible={loading}>
             <TitleRow>
               <DescriptionIcon width={25} height={25} />
               <TitleRecipeForm>Informações</TitleRecipeForm>
             </TitleRow>
-            {/* <TextInputMask
-              type={'custom'}
-              options={{
-                mask: '99999 AA'
-              }}
-              value={values.nome}
-              onChangeText={handleChange(`nome`)}
-              // value={"444444"}
-            /> */}
             <InformationLabel>Nome</InformationLabel>
             <NameDescriptionInput
               placeholder={"Digite o nome"}
@@ -150,21 +149,21 @@ const RecipeFormCard = (props) => {
               value={values.descricao}
             />
             <Row>
-              <HalfWidthLabel>Tempo médio</HalfWidthLabel>
-              <HalfWidthLabel>Quantidade</HalfWidthLabel>
+              <HalfWidthLabel>Tempo médio (min)</HalfWidthLabel>
+              <HalfWidthLabel>Volume (L)</HalfWidthLabel>
             </Row>
             <Row>
               <HalfWidthInput
                 placeholder={"Tempo médio"}
                 onChangeText={handleChange(`tempoMedio`)}
                 onBlur={handleBlur(`tempoMedio`)}
-                value={values.tempoMedio}
+                value={replaceToNumber(values.tempoMedio)}
               />
               <HalfWidthInput
                 placeholder={"Quantidade de litros"}
                 onChangeText={handleChange(`quantidadeLitros`)}
                 onBlur={handleBlur(`quantidadeLitros`)}
-                value={values.quantidadeLitros}
+                value={replaceToNumber(values.quantidadeLitros)}
               />
             </Row>
           </CardsInfo>
@@ -248,7 +247,6 @@ const RecipeFormCard = (props) => {
                 step={1}
                 onValueChange={
                   (sliderValue) => {
-                    setTemperatureData(sliderValue);
                     setFieldValue(`aquecimento.temperatura`, (sliderValue/10).toFixed(1))
                   }
                 }
@@ -265,8 +263,8 @@ const RecipeFormCard = (props) => {
               <TitleRecipeForm>Brassagem</TitleRecipeForm>
             </TitleRow>
             <Row>
-              <AmountLabel>Tempo</AmountLabel>
-              <InformationLabel>Temperatura</InformationLabel>
+              <AmountLabel>Tempo (min)</AmountLabel>
+              <InformationLabel>Temperatura (°C)</InformationLabel>
             </Row>
             {values.brassagem.map(({ text }, brazingIndex) => (
               <View key={"brazingView-"+brazingIndex}>
@@ -276,14 +274,14 @@ const RecipeFormCard = (props) => {
                     placeholder={"Duração"}
                     onChangeText={handleChange(`brassagem[${brazingIndex}].tempo`)}
                     onBlur={handleBlur(`brassagem[${brazingIndex}].tempo`)}
-                    value={values.brassagem[brazingIndex].tempo}
+                    value={replaceToNumber(values.brassagem[brazingIndex].tempo)}
                   />
                   <InformationInput
                     key={"temperatura-" + brazingIndex}
                     placeholder={"Temperatura"}
                     onChangeText={handleChange(`brassagem[${brazingIndex}].temperatura`)}
                     onBlur={handleBlur(`brassagem[${brazingIndex}].temperatura`)}
-                    value={values.brassagem[brazingIndex].temperatura}
+                    value={replaceToNumber(values.brassagem[brazingIndex].temperatura)}
                   />
                   <DeleteButton onPress={() => {
                   values.brassagem.splice(brazingIndex, 1);
@@ -309,15 +307,15 @@ const RecipeFormCard = (props) => {
               <Warm width={25} height={25}/>
               <TitleRecipeForm>Fervura</TitleRecipeForm>
             </TitleRow>
-            <AmountLabel>Tempo total</AmountLabel>
+            <InformationLabel>Tempo total (min)</InformationLabel>
             <NameDescriptionInput
               placeholder={"Tempo total"}
               onChangeText={handleChange(`fervura.tempoTotal`)}
               onBlur={handleBlur(`fervura.tempoTotal`)}
-              value={values.fervura.tempoTotal}
+              value={replaceToNumber(values.fervura.tempoTotal)}
             />
             <Row>
-              <WarmTimeLabel>Tempo</WarmTimeLabel>
+              <WarmTimeLabel>Tempo (min)</WarmTimeLabel>
               <WarmIngredientLabel>Ingrediente</WarmIngredientLabel>
               <WarmAmountLabel>Quantidade</WarmAmountLabel>
             </Row>
@@ -325,35 +323,12 @@ const RecipeFormCard = (props) => {
               <View key={"warmView-"+warmIndex}>
 
                 <Row key={"warmRow-"+warmIndex}>
-                  {/* <Picker
-                      key={"ingredient-" + warmIndex}
-                      selectedValue={values.fervura.ingredientes[warmIndex].nome}
-                      style={{ height: 50, width: 150 }}
-                      onValueChange={(ingredient) =>{
-                        if(ingredient) {
-                          setFieldValue(`fervura.ingredientes[${warmIndex}].nome`, ingredient);
-                          let ingredientSelected;
-                          values.ingredientes.map((ingredientItem) =>{
-                            if(ingredientItem.nome == ingredient) {
-                              ingredientSelected = ingredientItem;
-                            }
-                          })
-                          setFieldValue(`fervura.ingredientes[${warmIndex}].quantidade`, ingredientSelected.quantidade);
-                          setFieldValue(`fervura.ingredientes[${warmIndex}].unidadeMedida`, ingredientSelected.unidadeMedida);
-                        }
-                      }}
-                    >
-                      <Picker.Item label="Selecione um ingrediente" value={null} key="ingredient-null" />
-                      {values.ingredientes.map(element => {
-                        return <Picker.Item label={element.nome} value={element.nome} key={"ingredient-"+element.nome} />
-                      })}
-                  </Picker> */}
                   <WarmTimeInput
                     key={"warmTime" + warmIndex}
                     placeholder={"Duração"}
                     onChangeText={handleChange(`fervura.ingredientes[${warmIndex}].tempo`)}
                     onBlur={handleBlur(`fervura.ingredientes[${warmIndex}].tempo`)}
-                    value={values.fervura.ingredientes[warmIndex].tempo}
+                    value={replaceToNumber(values.fervura.ingredientes[warmIndex].tempo)}
                   />
                   <WarmIngredientInput
                     key={"fervuraIngredient-" + warmIndex}
@@ -404,7 +379,10 @@ const RecipeFormCard = (props) => {
             <SubmitButtonText>Confirmar</SubmitButtonText>
           </SubmitButton>
         </>
-      )}}
+      }
+        </>
+      )
+      }}
       </Formik>
     </ContainerRecipeForm>
   )
