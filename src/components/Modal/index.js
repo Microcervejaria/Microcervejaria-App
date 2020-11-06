@@ -37,9 +37,9 @@ export default function Modal(props) {
   return (
     <View style={{
       backgroundColor: '#FCA311',
-      height: '25%',
+      height: '32%',
       width: '75%',
-      borderRadius: '15px',
+      borderRadius: 15,
       padding: 15
       }}
     >
@@ -54,7 +54,7 @@ export default function Modal(props) {
         {icon === 'Alert' &&
         (<Alert width={75} height={75} style={{ margin: 10 }} />)}
         <Text style={{
-          fontSize: '25px',
+          fontSize: 20,
           flex: 1,
           flexWrap: 'wrap'
           }}
@@ -63,8 +63,8 @@ export default function Modal(props) {
       <View style={{ alignItems: 'center', padding: 10 }}>
         <View style={{ flexDirection: 'row'}}>
           <View style={{
-            backgroundColor: '#14213D',
-            borderRadius: '5px',
+            // backgroundColor: '#14213D',
+            borderRadius: 5,
             margin: 10,
             height: '65%',
             width: '40%',
@@ -73,13 +73,13 @@ export default function Modal(props) {
           >
             <Button
               title='Não'
-              color='#FFF'
+              color='#14213D'
               onPress={() => {}}
             />
           </View>
           <View style={{
-            backgroundColor: '#EB5757',
-            borderRadius: '5px',
+            // backgroundColor: '#EB5757',
+            borderRadius: 5,
             margin: 10,
             height: '65%',
             width: '40%',
@@ -87,7 +87,7 @@ export default function Modal(props) {
           }}>
             <Button
               title='Sim'
-              color='#FFF'
+              color='#EB5757'
               onPress={() => {}}
             />
           </View>
