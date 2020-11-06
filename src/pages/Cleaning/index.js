@@ -46,7 +46,6 @@ export default function Cleaning() {
   async function getResponse() {
     setLoading(true);
     const response = await API.post(`limpeza`, { headers: { "Authorization": "cervejaria" }});
-    console.warn(response.data);
     setLoading(false);
   }
 
