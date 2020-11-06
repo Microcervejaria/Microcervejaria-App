@@ -55,7 +55,7 @@ const TabContainer = styled.View`
 const TabList = styled.SectionList`
   flex: 1;
   height: 150%;
-  padding: 10px;
+  padding: 0px 10px;
 `;
 
 const TabDescription = styled.Text`
