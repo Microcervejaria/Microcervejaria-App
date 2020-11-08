@@ -5,6 +5,16 @@ import { set } from 'react-native-reanimated';
 import Alert from '../../assets/icons/alert.svg';
 import Interrogation from '../../assets/icons/interrogation.svg';
 
+import {
+  ModalCard,
+  Row,
+  NoButton,
+  NoButtonText,
+  YesButton,
+  YesButtonText,
+  DescriptionText,
+} from './styles';
+
 export default function Modal(props) {
   const [icon, setIcon] = useState('');
   const [description, setDescription] = useState('');
@@ -35,64 +45,20 @@ export default function Modal(props) {
   }, []);
 
   return (
-    <View style={{
-      backgroundColor: '#FCA311',
-      height: '32%',
-      width: '75%',
-      borderRadius: 15,
-      padding: 15
-      }}
-    >
-      <View style={{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
-        }}
-      >
-        {icon === 'Interrogation' &&
-        (<Interrogation width={75} height={75} style={{ margin: 10 }} />)}
-        {icon === 'Alert' &&
-        (<Alert width={75} height={75} style={{ margin: 10 }} />)}
-        <Text style={{
-          fontSize: 20,
-          flex: 1,
-          flexWrap: 'wrap'
-          }}
-        >{description}</Text>
-      </View>
-      <View style={{ alignItems: 'center', padding: 10 }}>
-        <View style={{ flexDirection: 'row'}}>
-          <View style={{
-            // backgroundColor: '#14213D',
-            borderRadius: 5,
-            margin: 10,
-            height: '65%',
-            width: '40%',
-            justifyContent: 'center',
-            }}
-          >
-            <Button
-              title='Não'
-              color='#14213D'
-              onPress={() => {}}
-            />
-          </View>
-          <View style={{
-            // backgroundColor: '#EB5757',
-            borderRadius: 5,
-            margin: 10,
-            height: '65%',
-            width: '40%',
-            justifyContent: 'center',
-          }}>
-            <Button
-              title='Sim'
-              color='#EB5757'
-              onPress={() => {}}
-            />
-          </View>
-        </View>
-      </View>
-    </View>
+    <ModalCard>
+      <Row>
+        {icon === 'Interrogation' && (<Interrogation width={75} height={75} style={{ margin: 10 }} />)}
+        {icon === 'Alert' && (<Alert width={75} height={75} style={{ margin: 10 }} />)}
+        <DescriptionText>{description}</DescriptionText>
+      </Row>
+      <Row>
+        <NoButton onPressOut={() => {}}>
+          <NoButtonText>Não</NoButtonText>
+        </NoButton>
+        <YesButton onPressOut={() => {}}>
+          <YesButtonText>Sim</YesButtonText>
+        </YesButton>
+      </Row>
+    </ModalCard>
   );
 }
