@@ -33,15 +33,11 @@ export default function Cleaning() {
   const CLEANING_TIME = 7200;
 
   const [loading, setLoading] = useState(true);
-  const [remaingSecs, setRemaingSecs] = useState(0);
-  const [elapsedSecs, setElapsedSecs] = useState(CLEANING_TIME);
+  const [remaingSecs, setRemaingSecs] = useState(CLEANING_TIME);
   const [isActive, setIsActive] = useState(true);
   const rHours = getTime(remaingSecs).hours;
   const rMins = getTime(remaingSecs).mins;
   const rSecs = getTime(remaingSecs).secs;
-  const eHours = getTime(elapsedSecs).hours;
-  const eMins = getTime(elapsedSecs).mins;
-  const eSecs = getTime(elapsedSecs).secs;
 
   async function getResponse() {
     setLoading(true);
@@ -52,21 +48,20 @@ export default function Cleaning() {
   useEffect(() => {
     let interval = null;
 
-    if (isActive && remaingSecs === 0 && elapsedSecs === CLEANING_TIME) {
+    if (isActive && remaingSecs === CLEANING_TIME) {
       getResponse()
     }
 
     if (isActive) {
       interval = setInterval(() => {
-        setRemaingSecs(remaingSecs => remaingSecs + 1);
-        setElapsedSecs(elapsedSecs => elapsedSecs - 1);
+        setRemaingSecs(remaingSecs => remaingSecs - 1);
       }, 1000);
-    } else if (!isActive && remaingSecs !== 0 && elapsedSecs !== CLEANING_TIME) {
+    } else if (!isActive && remaingSecs !== CLEANING_TIME) {
       clearInterval(interval);
     }
 
     return () => clearInterval(interval);
-  }, [isActive, remaingSecs, elapsedSecs]);
+  }, [isActive, remaingSecs]);
 
   return (
     !loading && (
@@ -74,8 +69,7 @@ export default function Cleaning() {
       <Bucket width={250} height={250} style={{ margin: 40 }} />
       <Description>Realizando Limpeza, aguarde...</Description>
       <ReportContainer>
-        <ReportText>Tempo gasto: {`${rHours}:${rMins}:${rSecs}`}</ReportText>
-        <ReportText>Tempo restante: {`${eHours}:${eMins}:${eSecs}`}</ReportText>
+        <ReportText>Tempo restante: {`${rHours}:${rMins}:${rSecs}`}</ReportText>
       </ReportContainer>
     </View>
     )
