@@ -56,7 +56,7 @@ export default function Cleaning() {
       interval = setInterval(() => {
         if (remaingSecs === 0) {
           setIsActive(false);
-          navigate("Main");
+          navigate("Receitas");
         } else {
           setRemaingSecs(remaingSecs => remaingSecs - 1);
         }
