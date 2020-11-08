@@ -54,7 +54,12 @@ export default function Cleaning() {
 
     if (isActive) {
       interval = setInterval(() => {
-        setRemaingSecs(remaingSecs => remaingSecs - 1);
+        if (remaingSecs === 0) {
+          setIsActive(false);
+          navigate("Main");
+        } else {
+          setRemaingSecs(remaingSecs => remaingSecs - 1);
+        }
       }, 1000);
     } else if (!isActive && remaingSecs !== CLEANING_TIME) {
       clearInterval(interval);
