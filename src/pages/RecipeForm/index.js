@@ -16,7 +16,7 @@ export default function RecipeFormPage() {
 
   return (
       <View style={styles.container}>
-        <RecipeFormCard id="nomeTeste2" />
+        <RecipeFormCard id="American+IPA" />
       </View>
   );
 }

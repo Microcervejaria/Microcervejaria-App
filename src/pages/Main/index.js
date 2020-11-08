@@ -42,7 +42,7 @@ export default function Main() {
       <View style={styles.container}>
         <RecipeCard data={data[0]} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPressOut={ () => navigate("Formulário de Receita") }>
             <AddEditRecipe width={60} height={60} style={{ margin: 20 }} />
           </TouchableOpacity>
           <TouchableOpacity>
