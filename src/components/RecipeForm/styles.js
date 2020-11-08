@@ -236,4 +236,36 @@ const DeleteSubmitButton = styled.TouchableOpacity`
   align-self: center;
 `
 
-export {CardsInfo, ContainerRecipeForm, TitleRecipeForm, InputText, TitleRow, SliderLabels, Row, TemperatureText, LabelText, AddButton, ButtonText, AmountInput, InformationInput, SubmitButton, SubmitButtonText, DeleteButton, NameDescriptionInput, HalfWidthInput, WarmAmountInput, WarmIngredientInput, WarmTimeInput, RowLabel, AmountLabel, InformationLabel, HalfWidthLabel, WarmAmountLabel, WarmIngredientLabel, WarmTimeLabel, HalfInputText, LoadingView, DeleteSubmitButton};
+export {
+  CardsInfo,
+  ContainerRecipeForm,
+  TitleRecipeForm,
+  InputText,
+  TitleRow,
+  SliderLabels,
+  Row,
+  TemperatureText,
+  LabelText,
+  AddButton,
+  ButtonText,
+  AmountInput,
+  InformationInput,
+  SubmitButton,
+  SubmitButtonText,
+  DeleteButton,
+  NameDescriptionInput,
+  HalfWidthInput,
+  WarmAmountInput,
+  WarmIngredientInput,
+  WarmTimeInput,
+  RowLabel,
+  AmountLabel,
+  InformationLabel,
+  HalfWidthLabel,
+  WarmAmountLabel,
+  WarmIngredientLabel,
+  WarmTimeLabel,
+  HalfInputText,
+  LoadingView,
+  DeleteSubmitButton
+};

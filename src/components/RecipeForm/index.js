@@ -1,13 +1,39 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
-import {Button, Text, TextInput, View, ActivityIndicator} from 'react-native';
-import { CardsInfo, ContainerRecipeForm, TitleRecipeForm, InputText, TitleRow,
-  Row, SliderLabels, TemperatureText, LabelText, AddButton, ButtonText,
-  AmountInput, InformationInput, SubmitButton, SubmitButtonText, DeleteButton,
-  NameDescriptionInput, HalfWidthInput, WarmAmountInput, WarmIngredientInput, WarmTimeInput,
-  AmountLabel, InformationLabel, HalfWidthLabel, WarmAmountLabel, WarmIngredientLabel,
-  WarmTimeLabel, LoadingView, DeleteSubmitButton}
-  from './styles';
+import { Button, Text, TextInput, View, ActivityIndicator } from 'react-native';
+import {
+  CardsInfo,
+  ContainerRecipeForm,
+  TitleRecipeForm,
+  InputText,
+  TitleRow,
+  SliderLabels,
+  Row,
+  TemperatureText,
+  LabelText,
+  AddButton,
+  ButtonText,
+  AmountInput,
+  InformationInput,
+  SubmitButton,
+  SubmitButtonText,
+  DeleteButton,
+  NameDescriptionInput,
+  HalfWidthInput,
+  WarmAmountInput,
+  WarmIngredientInput,
+  WarmTimeInput,
+  RowLabel,
+  AmountLabel,
+  InformationLabel,
+  HalfWidthLabel,
+  WarmAmountLabel,
+  WarmIngredientLabel,
+  WarmTimeLabel,
+  HalfInputText,
+  LoadingView,
+  DeleteSubmitButton
+} from './styles';
 
 import CookBook from '../../assets/icons/cookBookForm.svg';
 import Fire from '../../assets/icons/fire.svg';

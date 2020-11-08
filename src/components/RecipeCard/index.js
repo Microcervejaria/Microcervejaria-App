@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {ContainerRecipeCard, ContentRecipeCard, TitleRecipeForm, DescriptionRecipeCard, InfoRowRecipeCard, InfoComponentRecipeCard, InfoTextRecipeCard,
-  ign} from './styles';
+import {
+  ContainerRecipeCard,
+  ContentRecipeCard,
+  TitleRecipeCard,
+  DescriptionRecipeCard,
+  InfoRowRecipeCard,
+  InfoComponentRecipeCard,
+  InfoTextRecipeCard,
+  TabContainer,
+  TabList,
+  TabDescription,
+} from './styles';
 import RecipeTab from './RecipeTab';
 import { View, Text, TouchableOpacity } from 'react-native';
 import CookBook from '../../assets/icons/cookBook.svg';
@@ -17,10 +27,8 @@ class RecipeCard extends Component {
     return (
       <ContainerRecipeCard>
         <ContentRecipeCard>
-          <IconAlign>
-            <CookBook width={45} height={45}/>
-          </IconAlign>
-          <TitleRecipeForm>{this.context.data.nome}</TitleRecipeForm>
+          <CookBook width={45} height={45}/>
+          <TitleRecipeCard>{this.context.data.nome}</TitleRecipeCard>
           <TouchableOpacity>
             <EditIcon width={30} height={30}/>
           </TouchableOpacity>

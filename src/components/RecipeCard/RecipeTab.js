@@ -23,7 +23,7 @@ export default function RecipeTab (props) {
 
   function IngredientsData() {
     const dataIngredients = [];
-    recipeContext.data.Ingredientes.forEach(function (obj) {
+    recipeContext.data.ingredientes.forEach(function (obj) {
       dataIngredients.push({"title": obj.nome,"data": [obj.quantidade + ' ' + obj.unidadeMedida]});
     });
     setIngredients(dataIngredients);

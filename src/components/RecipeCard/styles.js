@@ -65,4 +65,15 @@ const TabDescription = styled.Text`
 `;
 
 
-export {ContainerRecipeCard, ContentRecipeCard, TitleRecipeCard, DescriptionRecipeCard, InfoRowRecipeCard, InfoComponentRecipeCard, InfoTextRecipeCard, TabContainer, TabList, TabDescription};
+export {
+  ContainerRecipeCard,
+  ContentRecipeCard,
+  TitleRecipeCard,
+  DescriptionRecipeCard,
+  InfoRowRecipeCard,
+  InfoComponentRecipeCard,
+  InfoTextRecipeCard,
+  TabContainer,
+  TabList,
+  TabDescription
+};
