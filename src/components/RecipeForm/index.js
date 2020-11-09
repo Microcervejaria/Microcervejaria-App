@@ -34,6 +34,7 @@ import {
   LoadingView,
   DeleteSubmitButton
 } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 import CookBook from '../../assets/icons/cookBookForm.svg';
 import Fire from '../../assets/icons/fire.svg';
@@ -162,7 +163,7 @@ const RecipeFormCard = (props) => {
     >
       {({ handleChange, handleBlur, handleSubmit, values, setFieldValue }) => {
       useEffect(() => {
-        if(props.id){
+        if (props.id) {
           (async () => await requestEditData(setFieldValue))();
         }
       },[]);

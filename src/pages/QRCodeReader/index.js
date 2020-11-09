@@ -23,7 +23,7 @@ export default function QRCodeReader() {
 
     // TODO: Guardar token
 
-    navigate('Main');
+    navigate('Receitas');
   };
 
   useEffect(() => {
