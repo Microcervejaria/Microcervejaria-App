@@ -29,7 +29,7 @@ export default function RecipeCard(props) {
       <ContentRecipeCard>
         <CookBook width={45} height={45}/>
         <TitleRecipeCard>{props.data.nome}</TitleRecipeCard>
-        <TouchableOpacity>
+        <TouchableOpacity onPressOut={() => navigate('Formulário de Receita', { nome: props.data.nome })}>
           <EditIcon width={30} height={30}/>
         </TouchableOpacity>
       </ContentRecipeCard>

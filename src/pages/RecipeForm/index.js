@@ -10,10 +10,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function RecipeFormPage() {
+export default function RecipeFormPage(props) {
+  const { nome } = props.route.params;
+
   return (
       <View style={styles.container}>
-        <RecipeFormCard id={null} />
+        <RecipeFormCard id={nome} />
       </View>
   );
 }

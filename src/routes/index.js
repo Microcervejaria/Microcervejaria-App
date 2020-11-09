@@ -26,7 +26,7 @@ export default function Routes() {
         {/* <Screen name="Sign In" component={SignIn} options={{ headerShown: false }} /> */}
         {/* <Screen name="Leitura do QR Code" component={QRCodeReader} options={{ headerBackTitle: "Voltar" }} /> */}
         <Screen name="Receitas" component={Main} options={{ headerBackTitle: "Sair" }} />
-        <Screen name="Formulário de Receita" component={RecipeFormPage}  options={{ headerBackTitle: "Voltar" }} />
+        <Screen name="Formulário de Receita" component={RecipeFormPage}  options={{ headerBackTitle: "Cancelar" }} />
         <Screen name="Limpeza" component={Cleaning} options={{ headerLeft: null }} />
       </Navigator>
     </NavigationContainer>

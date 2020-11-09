@@ -66,6 +66,8 @@ const createIngredient = () => ({
 
 
 const RecipeFormCard = (props) => {
+  const { navigate } = useNavigation();
+
   const [loading, setLoading] = useState(props.id ? true : false);
 
   const replaceToNumber = (value) => {
@@ -83,6 +85,7 @@ const RecipeFormCard = (props) => {
       sendData(data);
       resetForm({})
       setStatus({success: true})
+      navigate('Receitas', {});
     } catch (error) {
       setStatus({success: false})
       setSubmitting(false)
@@ -116,6 +119,7 @@ const RecipeFormCard = (props) => {
         'Authorization': 'cervejaria',
       }}).then((response) => {
         console.log(response);
+        navigate('Receitas', {});
       }, (error) => {
         console.log(error);
       });

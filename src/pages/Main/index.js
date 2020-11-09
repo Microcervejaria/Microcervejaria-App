@@ -18,9 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Main() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
+export default function Main({ route }) {
   const [data, setData] = useState(0);
   const [loading,setLoading]=useState(true);
 
@@ -34,31 +32,33 @@ export default function Main() {
   }
   useEffect(() => {
     getResponse();
-  }, []);
+  }, [route]);
 
   return (
-    !loading && (
-      <View style={styles.container}>
-        <View style={{margin: 15}}>
-          <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          >{
-            data.map(recipe => (<RecipeCard key={recipe.nome} data={recipe} />))
-          }</ScrollView>
+    <View style={styles.container}>{
+      !loading && (
+        <View>
+          <View style={{margin: 15}}>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >{
+              data.map(recipe => (<RecipeCard key={recipe.nome} data={recipe} />))
+            }</ScrollView>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+            <TouchableOpacity onPressOut={() => navigate('Formulário de Receita', { nome: null })}>
+              <AddEditRecipe width={60} height={60} style={{ marginRight: 30}} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Play width={120} height={120} />
+            </TouchableOpacity>
+            <TouchableOpacity onPressOut={ () => navigate("Limpeza") }>
+              <Cleaning width={60} height={60} style={{ marginLeft: 30 }} />
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-          <TouchableOpacity>
-            <AddEditRecipe width={60} height={60} style={{ marginRight: 30}} />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Play width={120} height={120} />
-          </TouchableOpacity>
-          <TouchableOpacity onPressOut={ () => navigate("Limpeza") }>
-            <Cleaning width={60} height={60} style={{ marginLeft: 30 }} />
-          </TouchableOpacity>
-        </View>
-      </View>
-    )
+      )
+    }</View>
   );
 }
