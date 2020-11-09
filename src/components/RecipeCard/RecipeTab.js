@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, StyleSheet, Dimensions, SafeAreaView } fr
 import { TabBar, TabView, SceneMap } from 'react-native-tab-view';
 import Ingredients from './Ingredients';
 import Process from './Process';
-import RecipeContext from '../../contexts/recipe';
 
 const renderTabBar = props => (
   <TabBar
@@ -14,16 +13,15 @@ const renderTabBar = props => (
 );
 
 export default function RecipeTab (props) {
-  const recipeContext = useContext(RecipeContext);
   const [index, setIndex] = React.useState(0);
   const [ingredients, setIngredients] = useState();
   const [brazingData, setBrazingData] = useState();
-  const [warmData] = useState({'title': '1. Aquecimento', 'data': [recipeContext.data.aquecimento.temperatura + '°C']});
-  const [boilData] = useState({'title': '3. Fervura', 'data': [recipeContext.data.fervura.tempoTotal + ' min']});
+  const [warmData] = useState({'title': '1. Aquecimento', 'data': [props.data.aquecimento.temperatura + '°C']});
+  const [boilData] = useState({'title': '3. Fervura', 'data': [props.data.fervura.tempoTotal + ' min']});
 
   function IngredientsData() {
     const dataIngredients = [];
-    recipeContext.data.ingredientes.forEach(function (obj) {
+    props.data.ingredientes.forEach(function (obj) {
       dataIngredients.push({"title": obj.nome,"data": [obj.quantidade + ' ' + obj.unidadeMedida]});
     });
     setIngredients(dataIngredients);
@@ -31,7 +29,7 @@ export default function RecipeTab (props) {
 
   function BrazingData() {
     const dataBrazing = [];
-    recipeContext.data.brassagem.forEach(function (obj) {
+    props.data.brassagem.forEach(function (obj) {
       dataBrazing.push(obj.temperatura + '°C ' + obj.tempo + ' min');
     });
     setBrazingData({'title': '2. brassagem', 'data': dataBrazing});

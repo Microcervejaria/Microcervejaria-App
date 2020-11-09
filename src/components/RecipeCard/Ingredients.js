@@ -1,7 +1,6 @@
 import React, { Component, useEffect, useState, useContext } from 'react';
 import { View, FlatList, Text } from 'react-native';
 import { TabContainer, TabList, TabDescription } from './styles';
-import RecipeContext from '../../contexts/recipe';
 
 function Ingredients (props) {
 

@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, FlatList, Text } from 'react-native';
 import { TabContainer, TabList, TabDescription } from './styles';
-import RecipeContext from '../../contexts/recipe';
 
 function Process(props) {
-  const recipeContext = useContext(RecipeContext);
-
   return (
     <TabContainer>
         <TabList
