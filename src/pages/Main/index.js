@@ -1,9 +1,7 @@
-import React, { useEffect, useState, createContext } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { TouchableOpacity, StyleSheet, Text, View, Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { TouchableOpacity, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
 import RecipeCard from '../../components/RecipeCard/index';
 import API from '../../services/api';
 
@@ -42,7 +40,7 @@ export default function Main() {
       <View style={styles.container}>
         <RecipeCard data={data[0]} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <TouchableOpacity onPressOut={ () => navigate("Formulário de Receita") }>
+          <TouchableOpacity>
             <AddEditRecipe width={60} height={60} style={{ margin: 20 }} />
           </TouchableOpacity>
           <TouchableOpacity>
