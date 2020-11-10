@@ -8,7 +8,7 @@ import WarmProcess from '../../components/Processes/Warm';
 import BrewProcess from '../../components/Processes/Brew';
 import InformationCard from '../../components/Processes/InformationCard';
 
-import {LoadingView, InformationView, InformationViewElements} from './styles';
+import {LoadingView, InformationView, InformationViewElements, StopButton} from './styles';
 
 import CookBook from '../../assets/icons/cookBookForm.svg';
 import Fire from '../../assets/icons/fire.svg';
@@ -63,8 +63,8 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    getActualProcess();
     setInterval(()=> getActualProcess(), 10000)
-    // getActualProcess();
   }, []);
 
   const getActualProcess = async() => {
@@ -98,6 +98,10 @@ export default function App() {
     return getStepIndicatorIconConfig(params);
   };
 
+  const stopProcess = () => {
+    console.log("Parar processo");
+  }
+
   return (
     <>
     {
@@ -119,7 +123,9 @@ export default function App() {
             <InformationCard temperatura={processData.temperaturaAtual} tempoRestante={processData.tempoRestante} />
           </InformationViewElements>
           <InformationViewElements>
-           <Stop width={65} height={45}/>
+            <StopButton onPress={stopProcess}>
+              <Stop width={65} height={45}/>
+            </StopButton>
           </InformationViewElements>
         </InformationView>
       </View>

@@ -19,4 +19,11 @@ const InformationViewElements = styled.View`
   align-items: center;
 `
 
-export {LoadingView, InformationView, InformationViewElements};
+const StopButton = styled.TouchableOpacity`
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+`;
+
+export {LoadingView, InformationView, InformationViewElements, StopButton};
