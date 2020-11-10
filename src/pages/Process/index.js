@@ -8,7 +8,7 @@ import WarmProcess from '../../components/Processes/Warm';
 import BrewProcess from '../../components/Processes/Brew';
 import InformationCard from '../../components/Processes/InformationCard';
 
-import {LoadingView} from './styles';
+import {LoadingView, InformationView} from './styles';
 
 import CookBook from '../../assets/icons/cookBookForm.svg';
 import Fire from '../../assets/icons/fire.svg';
@@ -58,30 +58,30 @@ const mapProcess = {'aquecimento': 1, 'brassagem': 2, 'fervura': 3};
 export default function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [processData, setProcessData] = useState();
+  const [ProcessComponent, setProcessComponent] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getActualProcess();
-    // setInterval(()=> getActualProcess(), 10000)
   }, []);
 
   const getActualProcess = async() => {
     const response = await API.get(`processo`, { headers: {"Authorization": "cervejaria"}});
     setProcessData(response.data);
     setLoading(false);
-    console.log(processData);
+    renderProcessComponent(response.data);
   }
 
-  const renderProcessComponent = () => {
-    switch (processData.processo) {
+  const renderProcessComponent = (data) => {
+    switch (data.processo) {
       case 'aquecimento': {
-        return <WarmProcess data={setProcessData} />;
+        setProcessComponent(<WarmProcess data={data} />);
       }
       case 'brassagem': {
-        return <BrewProcess data={setProcessData} />;
+        return <BrewProcess data={data} />;
       }
       case 'fervura': {
-        return <BoilProcess data={setProcessData} />;
+        return <BoilProcess data={data} />;
       }
       default: {
         break;
@@ -108,13 +108,15 @@ export default function App() {
           <StepIndicator
             stepCount={4}
             customStyles={stepIndicatorStyle}
-            // onPress={onStepPress}
+            onPress={onStepPress}
             currentPosition={mapProcess[processData.processo]}
             renderStepIndicator={renderStepIndicator}
           />
         </View>
-        {renderProcessComponent()}
-        <InformationCard temperatura={processData.temperaturaAtual} tempoRestante={processData.tempoRestante} />
+        {ProcessComponent}
+        <InformationView>
+          <InformationCard temperatura={processData.temperaturaAtual} tempoRestante={processData.tempoRestante} />
+        </InformationView>
       </View>
     }
   </>

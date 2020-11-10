@@ -21,5 +21,21 @@ const InformationCardText = styled.Text`
   font-size: 15px;
 `;
 
+const WarmView = styled.View`
+  margin: 20px 0px 20px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+`
 
-export {ProcessLabel, InformationCardView, InformationCardText};
+const WarmLabel = styled.Text`
+  margin: 10px 0px 0px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  color: #FCA311;
+`;
+
+export {ProcessLabel, InformationCardView, InformationCardText, WarmView, WarmLabel};

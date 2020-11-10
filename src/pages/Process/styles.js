@@ -5,4 +5,12 @@ const LoadingView = styled.View`
   justify-content: center;
   align-items: center;
 `
-export {LoadingView};
+
+const InformationView = styled.View`
+  flex: 1;
+  margin-bottom: 10px;
+  justify-content: flex-end;
+  align-items: center;
+`
+
+export {LoadingView, InformationView};
