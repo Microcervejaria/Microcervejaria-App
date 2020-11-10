@@ -37,10 +37,11 @@ export default function Main({ route }) {
     <View style={styles.container}>{
       !loading && (
         <View>
-          <View style={{margin: 15}}>
+          <View>
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
+              decelerationRate="fast"
             >{
               data.map(recipe => (<RecipeCard key={recipe.nome} data={recipe} />))
             }</ScrollView>

@@ -5,7 +5,7 @@ const ContainerRecipeCard = styled.View`
   height: 450px;
   width: 320px;
   border-radius: 14px;
-  margin: 20px 18px 18px;
+  margin: 20px 0px 18px 46px;
   padding: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 `;
