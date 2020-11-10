@@ -10,7 +10,6 @@ import Cleaning from '../../assets/icons/cleaning.svg';
 import Play from '../../assets/icons/play.svg';
 import AddEditRecipe from '../../assets/icons/addEditRecipe.svg';
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

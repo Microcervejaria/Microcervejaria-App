@@ -30,7 +30,7 @@ const getTime = (time) => {
 export default function Cleaning() {
   const { navigate } = useNavigation();
 
-  const CLEANING_TIME = 7200;
+  const CLEANING_TIME = 5;  // Tempo para testes. TODO: Corrigir para tempo real de 7200.
 
   const [loading, setLoading] = useState(true);
   const [remaingSecs, setRemaingSecs] = useState(CLEANING_TIME);
@@ -69,14 +69,16 @@ export default function Cleaning() {
   }, [isActive, remaingSecs]);
 
   return (
+    <View style={styles.container}>{
     !loading && (
-    <View style={styles.container}>
-      <Bucket width={250} height={250} style={{ margin: 40 }} />
-      <Description>Realizando Limpeza, aguarde...</Description>
-      <ReportContainer>
-        <ReportText>Tempo restante: {`${rHours}:${rMins}:${rSecs}`}</ReportText>
-      </ReportContainer>
+      <View>
+        <Bucket width={250} height={250} style={{ margin: 40 }} />
+        <Description>Realizando Limpeza, aguarde...</Description>
+        <ReportContainer>
+          <ReportText>Tempo restante: {`${rHours}:${rMins}:${rSecs}`}</ReportText>
+        </ReportContainer>
+      </View>
+    )}
     </View>
-    )
   );
 }
