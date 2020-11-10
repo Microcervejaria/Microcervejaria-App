@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
-import Swiper from 'react-native-swiper';
-import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
 import BoilProcess from '../../components/Processes/Boil';
 import WarmProcess from '../../components/Processes/Warm';
 import BrewProcess from '../../components/Processes/Brew';
@@ -61,6 +61,7 @@ export default function App() {
   const [processData, setProcessData] = useState();
   const [ProcessComponent, setProcessComponent] = useState();
   const [loading, setLoading] = useState(true);
+  const { navigate } = useNavigation();
 
   useEffect(() => {
     getActualProcess();
@@ -98,7 +99,14 @@ export default function App() {
     return getStepIndicatorIconConfig(params);
   };
 
-  const stopProcess = () => {
+  const stopProcess = async() => {
+    await API.post('processo/encerrar', [],{headers: {
+      'Authorization': 'cervejaria',
+    }}).then((response) => {
+      navigate("Receitas")
+    }, (error) => {
+      console.log(error);
+    });
     console.log("Parar processo");
   }
 
