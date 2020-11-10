@@ -8,9 +8,15 @@ const LoadingView = styled.View`
 
 const InformationView = styled.View`
   flex: 1;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   justify-content: flex-end;
   align-items: center;
 `
 
-export {LoadingView, InformationView};
+const InformationViewElements = styled.View`
+  margin-top: 13px;
+  justify-content: flex-end;
+  align-items: center;
+`
+
+export {LoadingView, InformationView, InformationViewElements};

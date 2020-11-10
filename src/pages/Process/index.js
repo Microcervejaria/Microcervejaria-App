@@ -8,12 +8,14 @@ import WarmProcess from '../../components/Processes/Warm';
 import BrewProcess from '../../components/Processes/Brew';
 import InformationCard from '../../components/Processes/InformationCard';
 
-import {LoadingView, InformationView} from './styles';
+import {LoadingView, InformationView, InformationViewElements} from './styles';
 
 import CookBook from '../../assets/icons/cookBookForm.svg';
 import Fire from '../../assets/icons/fire.svg';
 import Brazing from '../../assets/icons/brazing.svg';
 import Warm from '../../assets/icons/warm.svg';
+import Stop from '../../assets/icons/stop.svg';
+
 import API from '../../services/api';
 
 const stepIndicatorStyle = {
@@ -56,13 +58,13 @@ const getStepIndicatorIconConfig = ({position}) => {
 const mapProcess = {'aquecimento': 1, 'brassagem': 2, 'fervura': 3};
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState(0);
   const [processData, setProcessData] = useState();
   const [ProcessComponent, setProcessComponent] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getActualProcess();
+    setInterval(()=> getActualProcess(), 10000)
+    // getActualProcess();
   }, []);
 
   const getActualProcess = async() => {
@@ -76,21 +78,20 @@ export default function App() {
     switch (data.processo) {
       case 'aquecimento': {
         setProcessComponent(<WarmProcess data={data} />);
+        break;
       }
       case 'brassagem': {
-        return <BrewProcess data={data} />;
+        setProcessComponent(<BrewProcess data={data} />);
+        break;
       }
       case 'fervura': {
-        return <BoilProcess data={data} />;
+        setProcessComponent(<BoilProcess data={data} />);
+        break;
       }
       default: {
         break;
       }
     }
-  };
-
-  const onStepPress = (position) => {
-    setCurrentPage(position);
   };
 
   const renderStepIndicator = (params) => {
@@ -108,14 +109,18 @@ export default function App() {
           <StepIndicator
             stepCount={4}
             customStyles={stepIndicatorStyle}
-            onPress={onStepPress}
             currentPosition={mapProcess[processData.processo]}
             renderStepIndicator={renderStepIndicator}
           />
         </View>
         {ProcessComponent}
         <InformationView>
-          <InformationCard temperatura={processData.temperaturaAtual} tempoRestante={processData.tempoRestante} />
+          <InformationViewElements>
+            <InformationCard temperatura={processData.temperaturaAtual} tempoRestante={processData.tempoRestante} />
+          </InformationViewElements>
+          <InformationViewElements>
+           <Stop width={65} height={45}/>
+          </InformationViewElements>
         </InformationView>
       </View>
     }
