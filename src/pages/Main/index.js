@@ -50,7 +50,7 @@ export default function Main({ route }) {
             <TouchableOpacity onPressOut={() => navigate('Formulário de Receita', { nome: null })}>
               <AddEditRecipe width={60} height={60} style={{ marginRight: 30}} />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPressOut={ () => navigate("Processos")}>
               <Play width={120} height={120} />
             </TouchableOpacity>
             <TouchableOpacity onPressOut={ () => navigate("Limpeza") }>
