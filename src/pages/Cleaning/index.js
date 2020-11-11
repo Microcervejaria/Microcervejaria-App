@@ -19,11 +19,31 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function Cleaning() {
+export default function Cleaning(props) {
   const { navigate } = useNavigation();
+  const { expoPushToken } = props.route.params;
   const [loading, setLoading] = useState(true);
   const [remaingSecs, setRemaingSecs] = useState(CLEANING_TIME);
   const { hours, mins, secs } = getTime(remaingSecs);
+
+  async function sendPushNotification() {
+    const message = {
+      to: expoPushToken,
+      sound: 'default',
+      title: 'Limpeza',
+      body: 'O processo de limpeza foi finalizado.',
+    };
+
+    await fetch('https://exp.host/--/api/v2/push/send', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Accept-encoding': 'gzip, deflate',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(message),
+    });
+  }
 
   function getTime(time) {
     function formatNumber(number) {
@@ -53,6 +73,7 @@ export default function Cleaning() {
 
     interval = setInterval(() => {
       if (remaingSecs === 0) {
+        sendPushNotification();
         navigate("Receitas");
       } else {
         setRemaingSecs(remaingSecs => remaingSecs - 1);
