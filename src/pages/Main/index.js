@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ScrollView, TouchableOpacity, StyleSheet, View } from 'react-native';
+import { AsyncStorage, ScrollView, TouchableOpacity, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
@@ -88,10 +88,16 @@ export default function Main({ route }) {
   }
 
   async function getResponse() {
-    setLoading(true);
-    const response = await API.get(`receitas`, { headers: {"Authorization": "cervejaria"}});
-    setData(response.data);
-    setLoading(false);
+    try {
+      const token = await AsyncStorage.getItem('Token');
+      if (token) {
+        const response = await API.get(`receitas`, { headers: {"Authorization": token}});
+        setData(response.data);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
