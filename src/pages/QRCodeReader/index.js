@@ -37,6 +37,8 @@ export default function QRCodeReader() {
   };
 
   useEffect(() => {
+    (async() => await AsyncStorage.removeItem('Token'))();
+
     Permissions.getAsync(Permissions.CAMERA).then((response) => {
       if (response.canAskAgain && !response.granted) {
         Permissions.askAsync(Permissions.CAMERA).then((status) => {
