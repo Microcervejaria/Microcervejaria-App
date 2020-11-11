@@ -88,15 +88,11 @@ export default function Main({ route }) {
   }
 
   async function getResponse() {
-    try {
-      const token = await AsyncStorage.getItem('Token');
-      if (token) {
-        const response = await API.get(`receitas`, { headers: {"Authorization": token}});
-        setData(response.data);
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error(error);
+    const token = await AsyncStorage.getItem('Token');
+    if (token) {
+      const response = await API.get(`receitas`, { headers: { "Authorization": token } });
+      setData(response.data);
+      setLoading(false);
     }
   }
 
