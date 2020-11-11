@@ -27,13 +27,6 @@ export default function Cleaning(props) {
   const { hours, mins, secs } = getTime(remaingSecs);
 
   async function sendPushNotification() {
-    const message = {
-      to: expoPushToken,
-      sound: 'default',
-      title: 'Limpeza',
-      body: 'O processo de limpeza foi finalizado.',
-    };
-
     await fetch('https://exp.host/--/api/v2/push/send', {
       method: 'POST',
       headers: {
@@ -41,7 +34,12 @@ export default function Cleaning(props) {
         'Accept-encoding': 'gzip, deflate',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(message),
+      body: JSON.stringify({
+        to: expoPushToken,
+        sound: 'default',
+        title: 'Limpeza',
+        body: 'O processo de limpeza foi finalizado.',
+      }),
     });
   }
 
