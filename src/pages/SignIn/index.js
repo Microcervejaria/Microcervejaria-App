@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { AsyncStorage, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Description } from './styles';
 import QrCode from '../../assets/icons/qrCode';
@@ -20,6 +20,13 @@ const styles = StyleSheet.create({
 
 export default function SignIn() {
   const { navigate } = useNavigation();
+
+  useEffect(() => {
+    (async() => {
+      const token = await AsyncStorage.getItem('Token');
+      if (token) navigate('Receitas');
+    })();
+  }, []);
 
   return (
     <View style={styles.container}>
