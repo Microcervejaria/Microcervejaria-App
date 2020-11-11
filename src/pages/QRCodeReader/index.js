@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { AsyncStorage } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigation } from '@react-navigation/native';
@@ -18,12 +19,21 @@ export default function QRCodeReader() {
   const { navigate } = useNavigation();
   const [cameraPermission, setcameraPermission] = useState(false);
 
-  const handleBarCodeScanned = (result) => {
+  async function handleBarCodeScanned(result) {
     const token = result.data;
 
-    // TODO: Guardar token
-
-    navigate('Receitas');
+    try {
+      await AsyncStorage.setItem('Token', token);
+      if (token === 'cervejaria') {
+        navigate('Receitas');
+      } else {
+        navigate('Sign In')
+        console.warn('Token inválido.');
+      }
+    } catch (error) {
+      navigate('Sign In')
+      console.error(error);
+    }
   };
 
   useEffect(() => {
