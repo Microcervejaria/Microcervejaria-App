@@ -60,12 +60,13 @@ const mapProcess = {'aquecimento': 1, 'brassagem': 2, 'fervura': 3};
 export default function App() {
   const [processData, setProcessData] = useState();
   const [ProcessComponent, setProcessComponent] = useState();
+  const [TimeOut, setTimeOut] = useState();
   const [loading, setLoading] = useState(true);
   const { navigate } = useNavigation();
 
   useEffect(() => {
     getActualProcess();
-    setInterval(()=> getActualProcess(), 10000)
+    setTimeOut(setInterval(()=> getActualProcess(), 10000))
   }, []);
 
   const getActualProcess = async() => {
@@ -103,7 +104,8 @@ export default function App() {
     await API.post('processo/encerrar', [],{headers: {
       'Authorization': 'cervejaria',
     }}).then((response) => {
-      navigate("Receitas")
+      clearInterval(TimeOut);
+      navigate("Receitas");
     }, (error) => {
       console.log(error);
     });
