@@ -56,7 +56,7 @@ export default function QRCodeReader() {
             </>
           ) : (
             <ErrorCotainer>
-              <ErrorTitle>Para continuar usando de acesso a camera</ErrorTitle>
+              <ErrorTitle>Para continuar usando, conceda o acesso da câmera ao aplicativo.</ErrorTitle>
             </ErrorCotainer>
           )}
       </Container>

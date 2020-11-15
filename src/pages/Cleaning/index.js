@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import API from '../../services/api';
-
 import {
   Description,
   ReportContainer,
   ReportText
  } from './styles';
 import Bucket from '../../assets/icons/bucket';
+
+const CLEANING_TIME = 5;  // Tempo para testes. TODO: Corrigir para tempo real de 7200.
 
 const styles = StyleSheet.create({
   container: {
@@ -18,65 +19,79 @@ const styles = StyleSheet.create({
   }
 });
 
-const formatNumber = number => `0${number}`.slice(-2);
-
-const getTime = (time) => {
-  const hours = Math.floor(time / 3600);
-  const mins = Math.floor((time % 3600) / 60);
-  const secs = Math.ceil((time % 3600) % 60);
-  return { hours: formatNumber(hours), mins: formatNumber(mins), secs: formatNumber(secs) };
-}
-
-export default function Cleaning() {
+export default function Cleaning(props) {
   const { navigate } = useNavigation();
-
-  const CLEANING_TIME = 7200;
-
+  const { expoPushToken } = props.route.params;
   const [loading, setLoading] = useState(true);
   const [remaingSecs, setRemaingSecs] = useState(CLEANING_TIME);
-  const [isActive, setIsActive] = useState(true);
-  const rHours = getTime(remaingSecs).hours;
-  const rMins = getTime(remaingSecs).mins;
-  const rSecs = getTime(remaingSecs).secs;
+  const { hours, mins, secs } = getTime(remaingSecs);
 
-  async function getResponse() {
-    setLoading(true);
-    const response = await API.post(`limpeza`, { headers: { "Authorization": "cervejaria" }});
-    setLoading(false);
+  async function sendPushNotification() {
+    await fetch('https://exp.host/--/api/v2/push/send', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Accept-encoding': 'gzip, deflate',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        to: expoPushToken,
+        sound: 'default',
+        title: 'Limpeza',
+        body: 'O processo de limpeza foi finalizado.',
+      }),
+    });
+  }
+
+  function getTime(time) {
+    function formatNumber(number) {
+      return `0${number}`.slice(-2);
+    }
+
+    const hours = Math.floor(time / 3600);
+    const mins = Math.floor((time % 3600) / 60);
+    const secs = Math.ceil((time % 3600) % 60);
+    return { hours: formatNumber(hours), mins: formatNumber(mins), secs: formatNumber(secs) };
+  }
+
+  function getResponse() {
+    const data = { "nomeReceita": "" };
+    const headers = { headers: { "Authorization": "cervejaria" } };
+    API.post(`limpeza`, data, headers)
+       .then(() => setLoading(false))
+       .catch(error => console.log(error));
   }
 
   useEffect(() => {
     let interval = null;
 
-    if (isActive && remaingSecs === CLEANING_TIME) {
+    if (loading) {
       getResponse()
     }
 
-    if (isActive) {
-      interval = setInterval(() => {
-        if (remaingSecs === 0) {
-          setIsActive(false);
-          navigate("Receitas");
-        } else {
-          setRemaingSecs(remaingSecs => remaingSecs - 1);
-        }
-      }, 1000);
-    } else if (!isActive && remaingSecs !== CLEANING_TIME) {
-      clearInterval(interval);
-    }
+    interval = setInterval(() => {
+      if (remaingSecs === 0) {
+        sendPushNotification();
+        navigate("Receitas");
+      } else {
+        setRemaingSecs(remaingSecs => remaingSecs - 1);
+      }
+    }, 1000);
 
     return () => clearInterval(interval);
-  }, [isActive, remaingSecs]);
+  }, [remaingSecs]);
 
   return (
+    <View style={styles.container}>{
     !loading && (
-    <View style={styles.container}>
-      <Bucket width={250} height={250} style={{ margin: 40 }} />
-      <Description>Realizando Limpeza, aguarde...</Description>
-      <ReportContainer>
-        <ReportText>Tempo restante: {`${rHours}:${rMins}:${rSecs}`}</ReportText>
-      </ReportContainer>
+      <View>
+        <Bucket width={250} height={250} style={{ margin: 40 }} />
+        <Description>Realizando Limpeza, aguarde...</Description>
+        <ReportContainer>
+          <ReportText>Tempo restante: {`${hours}:${mins}:${secs}`}</ReportText>
+        </ReportContainer>
+      </View>
+    )}
     </View>
-    )
   );
 }

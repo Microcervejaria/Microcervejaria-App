@@ -1,10 +1,22 @@
 {
-  "name": "HomeBeer",
-  "displayName": "HomeBeer",
   "expo": {
-    "name": "HomeBeer",
-    "slug": "HomeBeer",
+    "name": "Home Beer",
+    "icon": "./src/assets/images/HomeBeerIcon.png",
+    "slug": "home-beer",
+    "orientation": "portrait",
     "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "splash": {
+      "image": "./src/assets/images/HomeBeerIcon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#14213D"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
     "packagerOpts": {
       "config": "metro.config.js",
       "sourceExts": [
@@ -23,6 +35,20 @@
     },
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "notification": {
+      "icon": "./src/assets/images/HomeBeerIcon.png",
+      "color": "#FCA311",
+      "androidMode": "default",
+      "androidCollapsedTitle": "Updates from Home Beer",
+      "iosDisplayInForeground": true
+    },
+    "ios": {
+      "icon": "./src/assets/images/HomeBeerIcon.png"
+
+    },
+    "android": {
+      "icon": "./src/assets/images/HomeBeerIcon.png"
+    }
   }
 }
