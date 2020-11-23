@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { AsyncStorage, View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import API from '../../services/api';
 import {
@@ -54,12 +54,15 @@ export default function Cleaning(props) {
     return { hours: formatNumber(hours), mins: formatNumber(mins), secs: formatNumber(secs) };
   }
 
-  function getResponse() {
-    const data = { "nomeReceita": "" };
-    const headers = { headers: { "Authorization": "cervejaria" } };
-    API.post(`limpeza`, data, headers)
-       .then(() => setLoading(false))
-       .catch(error => console.log(error));
+  async function getResponse() {
+    const token = await AsyncStorage.getItem('Token');
+    if (token) {
+      const data = { "nomeReceita": "" };
+      const headers = { headers: { "Authorization": token } };
+      API.post(`limpeza`, data, headers)
+        .then(() => setLoading(false))
+        .catch(error => console.log(error));
+    }
   }
 
   useEffect(() => {

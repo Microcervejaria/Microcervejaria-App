@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
+import { AsyncStorage, StyleSheet, View, ActivityIndicator } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
 import { useNavigation } from '@react-navigation/native';
 
@@ -70,10 +70,13 @@ export default function App() {
   }, []);
 
   const getActualProcess = async() => {
-    const response = await API.get(`processo`, { headers: {"Authorization": "cervejaria"}});
-    setProcessData(response.data);
-    setLoading(false);
-    renderProcessComponent(response.data);
+    const token = await AsyncStorage.getItem('Token');
+    if (token) {
+      const response = await API.get(`processo`, { headers: {"Authorization": token } });
+      setProcessData(response.data);
+      setLoading(false);
+      renderProcessComponent(response.data);
+    }
   }
 
   const renderProcessComponent = (data) => {
@@ -101,15 +104,17 @@ export default function App() {
   };
 
   const stopProcess = async() => {
-    await API.post('processo/encerrar', [],{headers: {
-      'Authorization': 'cervejaria',
-    }}).then((response) => {
-      clearInterval(TimeOut);
-      navigate("Receitas");
-    }, (error) => {
-      console.log(error);
-    });
-    console.log("Parar processo");
+    const token = await AsyncStorage.getItem('Token');
+    if (token) {
+      await API.post('processo/encerrar', [],{headers: { 'Authorization': token } })
+      .then((response) => {
+        clearInterval(TimeOut);
+        navigate("Receitas");
+      }, (error) => {
+        console.log(error);
+      });
+      console.log("Parar processo");
+    }
   }
 
   return (

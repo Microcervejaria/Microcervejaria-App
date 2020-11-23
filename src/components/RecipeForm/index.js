@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
-import { Button, Text, TextInput, View, ActivityIndicator } from 'react-native';
+import { AsyncStorage, Button, Text, TextInput, View, ActivityIndicator } from 'react-native';
 import {
   CardsInfo,
   ContainerRecipeForm,
@@ -94,56 +94,60 @@ const RecipeFormCard = (props) => {
   }
 
 
-  const requestEditData = async (setFieldValue) => {
-    await API.get(`receita/${props.id}/`, {headers: {
-      'Authorization': 'cervejaria',
-    }}).then((response) => {
-      const responseData = response.data[0];
-      setFieldValue(`nome`, responseData.nome);
-      setFieldValue(`descricao`, responseData.descricao);
-      setFieldValue(`tempoMedio`, responseData.tempoMedio);
-      setFieldValue(`quantidadeLitros`, responseData.quantidadeLitros);
-      setFieldValue(`aquecimento`, responseData.aquecimento);
-      setFieldValue(`brassagem`, responseData.brassagem);
-      setFieldValue(`fervura`, responseData.fervura);
-      setFieldValue(`ingredientes`, responseData.ingredientes);
-      setLoading(false);
-    }, (error) => {
-      console.log(error);
-    });
-  }
-
-  const deleteData = async (data) => {
-    if(props.id) {
-      await API.delete(`receitas/${props.id}`,   {headers: {
-        'Authorization': 'cervejaria',
-      }}).then((response) => {
-        console.log(response);
-        navigate('Receitas', {});
+  async function requestEditData(setFieldValue) {
+    const token = await AsyncStorage.getItem('Token');
+    if (token) {
+      API.get(`receita/${props.id}/`, { headers: { 'Authorization': token } })
+      .then((response) => {
+        const responseData = response.data[0];
+        setFieldValue(`nome`, responseData.nome);
+        setFieldValue(`descricao`, responseData.descricao);
+        setFieldValue(`tempoMedio`, responseData.tempoMedio);
+        setFieldValue(`quantidadeLitros`, responseData.quantidadeLitros);
+        setFieldValue(`aquecimento`, responseData.aquecimento);
+        setFieldValue(`brassagem`, responseData.brassagem);
+        setFieldValue(`fervura`, responseData.fervura);
+        setFieldValue(`ingredientes`, responseData.ingredientes);
+        setLoading(false);
       }, (error) => {
         console.log(error);
       });
     }
   }
 
-  const sendData = async (data) => {
+  async function deleteData(data) {
     if(props.id) {
-      await API.put(`receitas/${props.id}`, data,   {headers: {
-        'Authorization': 'cervejaria',
-      }}).then((response) => {
-        console.log(response);
-      }, (error) => {
-        console.log(error);
-      });
+      const token = await AsyncStorage.getItem('Token');
+      if (token) {
+        await API.delete(`receitas/${props.id}`, {headers: { 'Authorization': token } })
+        .then((response) => {
+          console.log(response);
+          navigate('Receitas', {});
+        }, (error) => {
+          console.log(error);
+        });
+      }
     }
-    else {
-      await API.post('receita', data,   {headers: {
-        'Authorization': 'cervejaria',
-      }}).then((response) => {
-        console.log(response);
-      }, (error) => {
-        console.log(error);
-      });
+  }
+
+  async function sendData(data) {
+    const token = await AsyncStorage.getItem('Token');
+    if (token) {
+      if(props.id) {
+        await API.put(`receitas/${props.id}`, data, {headers: { 'Authorization': token } })
+        .then((response) => {
+          console.log(response);
+        }, (error) => {
+          console.log(error);
+        });
+      } else {
+        await API.post('receita', data, {headers: { 'Authorization': token } })
+        .then((response) => {
+          console.log(response);
+        }, (error) => {
+          console.log(error);
+        });
+      }
     }
   }
 
@@ -168,7 +172,7 @@ const RecipeFormCard = (props) => {
       {({ handleChange, handleBlur, handleSubmit, values, setFieldValue }) => {
       useEffect(() => {
         if (props.id) {
-          (async () => await requestEditData(setFieldValue))();
+          requestEditData(setFieldValue);
         }
       },[]);
 
